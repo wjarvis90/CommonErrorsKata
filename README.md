@@ -1,5 +1,5 @@
 # CommonErrorsKata
-"Flash Card" Practice for TrueCoders
+Stack trace flash card practice
 
 Welcome to our Common Errors Kata. Using this Kata will encourage your sleuthing skills in finding bugs within code and solving them logically. This app should show images of stack traces and give you possible correct answers to choose from. If you choose correctly, you should pass a boolean value of `true` to the answer queue. Otherwise, it should pass `false`.
 
