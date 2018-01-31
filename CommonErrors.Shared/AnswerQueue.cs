@@ -14,10 +14,7 @@ namespace CommonErrorsKata.Shared
         /// Stack that cannot exceed it's size
         /// </summary>
         /// <param name="size">Maximum size of the queue</param>
-        public AnswerQueue(int size)
-        {
-            this.size = size;
-        }
+        public AnswerQueue(int size) => this.size = size;
 
         /// <summary>
         /// Hides the default implementation of queue Enqueue 
