@@ -19,9 +19,10 @@ namespace CommonErrors.Test
             var queue = new AnswerQueue<TrueFalseAnswer>(size);
 
             //Act
-            for (int i = 0; i < size+1; i++)
+            for (int i = 0; i < size + 1; i++)
+            {
                 queue.Enqueue(new TrueFalseAnswer(true));
-
+            }
             //Assert
             Assert.IsTrue(queue.Count <= 10);
         }
@@ -33,9 +34,10 @@ namespace CommonErrors.Test
             var size = 10;
             var queue = new AnswerQueue<TrueFalseAnswer>(size);
             queue.Enqueue(new TrueFalseAnswer(false));
-            for (var i =0; i< 10; i++)
+            for (var i = 0; i < 10; i++)
+            {
                 queue.Enqueue(new TrueFalseAnswer(true));
-            
+            }
             //Act
             var grade = queue.Grade;
             

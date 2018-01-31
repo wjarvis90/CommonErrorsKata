@@ -22,7 +22,7 @@ namespace CommonErrorsKata.Shared
         /// <param name="item"></param>
         public new void Enqueue(T item)
         {
-            if (this.Count >= size) base.Dequeue();
+            if (this.Count >= size) Dequeue();
 
             base.Enqueue(item);
         }

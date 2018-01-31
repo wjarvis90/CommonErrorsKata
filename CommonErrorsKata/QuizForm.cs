@@ -14,15 +14,17 @@ namespace CommonErrorsKata
         private readonly string[] _files;
         private readonly SynchronizationContext _synchronizationContext;
         private int _time = 100;
-        private string _currentBaseName;
+        private string _visibleImagePath = null;
+        private readonly string[] _possibleAnswers = null;
 
         public CommonErrorsForm()
         {
             InitializeComponent();
             _synchronizationContext = SynchronizationContext.Current;
             _files = Directory.GetFiles(Environment.CurrentDirectory +  @"..\..\..\ErrorPics");
-            var possibleAnswers = new[] { "Missing File", "null instance", "divide by zero" };
-            lstAnswers.DataSource = possibleAnswers;
+            _possibleAnswers = new[] { "Missing File", "null instance", "divide by zero" };
+            _possibleAnswers = _files.Select(f => Path.GetFileName(f)?.Replace(".png", "")).ToArray();
+            lstAnswers.DataSource = _possibleAnswers;
             _answerQueue = new AnswerQueue<TrueFalseAnswer>(15);
             Next();
             lstAnswers.Click += LstAnswers_Click;
@@ -35,7 +37,7 @@ namespace CommonErrorsKata
                 for (_time = 100; _time > 0; _time--)
                 {
                     UpdateProgress(_time);
-                    Thread.Sleep(50);
+                    Thread.Sleep(500);
                 }
                 Message("Need to be quicker on your feet next time!  Try again...");
             });
@@ -44,7 +46,7 @@ namespace CommonErrorsKata
         private void LstAnswers_Click(object sender, EventArgs e)
         {
             _time = 100;
-            var tokens = _currentBaseName.Split(' ');
+            var tokens = _visibleImagePath.Split(' ');
             //TODO:  Figure out what is a valid answer.
             _answerQueue.Enqueue(new TrueFalseAnswer(true));
             Next();
@@ -52,7 +54,7 @@ namespace CommonErrorsKata
 
         private void Next()
         {
-            if (_answerQueue.Count == 15 && _answerQueue.Grade >= 98)
+            if (_answerQueue.Count == 4 && _answerQueue.Grade >= 98)
             {
                 MessageBox.Show("Congratulations you've defeated me!");
                 Application.Exit();
@@ -60,7 +62,7 @@ namespace CommonErrorsKata
             }
             label1.Text = _answerQueue.Grade.ToString() + "%";
             var file = _files.GetRandom();
-            _currentBaseName= Path.GetFileName(file);
+            _visibleImagePath= Path.GetFileName(file);
             pbImage.ImageLocation = file;
         }
 
